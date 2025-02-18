@@ -18,9 +18,4 @@ process EXERCISE_TABLE {
   python3 ${projectDir}/bin/exercise_table.py \
    ${alleledata}
   """
-  Rscript ${projectDir}/bin/build_alleletable.R \
-    --amplicon-info ${amplicon_info} \
-    --denoised-asvs ${denoised_asvs} \
-    --processed-asvs ${processed_asvs}
-  """
 }
