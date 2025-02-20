@@ -5,22 +5,23 @@
 
 process EXERCISE_TABLE {
 
-  conda 'envs/exercise_env.yml'
+  label 'process_single'
+  conda 'envs/postproc-env.yml'
+
+  publishDir(
+    path: "${params.outDIR}",
+    mode: 'copy'
+  )
 
   input:
   path alleledata
-  
+ 
   output:
-  path("exercise_data.txt"), emit: exercisedata
+  path("exercise_data.tsv"), emit: exercisedata
 
   script:
   """
   python3 ${projectDir}/bin/exercise_table.py \
    ${alleledata}
-  """
-  Rscript ${projectDir}/bin/build_alleletable.R \
-    --amplicon-info ${amplicon_info} \
-    --denoised-asvs ${denoised_asvs} \
-    --processed-asvs ${processed_asvs}
   """
 }

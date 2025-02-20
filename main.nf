@@ -26,6 +26,7 @@ include { POSTPROC_ONLY } from './workflows/postproc_only.nf'
 
 // modules
 include { BUILD_ALLELETABLE } from './modules/local/build_alleletable.nf'
+include { EXERCISE_TABLE } from './modules/local/exercise_table.nf'
 
 def helpMessage() {
   log.info """
@@ -141,6 +142,11 @@ workflow {
       amplicon_info,
       DENOISE_AMPLICONS_1.out.denoise_ch,
       DENOISE_AMPLICONS_2.out.results_ch
+    )
+
+    // Create the table for the exercise
+    EXERCISE_TABLE(
+      BUILD_ALLELETABLE.out.alleledata
     )
 
     // Create the quality report now
